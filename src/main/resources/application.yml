@@ -5,5 +5,5 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://dbconn.sealoshzh.site:45986
     username: root
-    password: s5t2j8lc
+    password: 
 
