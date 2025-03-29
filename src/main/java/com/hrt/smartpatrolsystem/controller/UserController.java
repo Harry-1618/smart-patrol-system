@@ -5,12 +5,10 @@ import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.service.IUserService;
 import com.hrt.smartpatrolsystem.user.pojos.User;
 import com.hrt.smartpatrolsystem.user.vos.UserVO;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.sound.midi.Soundbank;
 
@@ -37,8 +35,16 @@ public class UserController {
         }
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user,userVO,UserVO.class);
-        System.out.println(userVO);
         return ResponseResult.okResult(userVO);
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseResult deleteUserById(@PathVariable Integer id){
+        boolean b = userService.removeById(id);
+        if (b){
+            return ResponseResult.okResult(null);
+        }
+        return ResponseResult.errorResult(HttpCodeEnum.ERROR);
     }
 
 }
