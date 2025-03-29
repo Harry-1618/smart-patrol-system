@@ -1,5 +1,6 @@
 package com.hrt.smartpatrolsystem.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version: v1.0
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
+
+
+
 }
