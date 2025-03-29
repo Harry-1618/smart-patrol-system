@@ -1,8 +1,18 @@
 package com.hrt.smartpatrolsystem.controller;
 
+import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
+import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
+import com.hrt.smartpatrolsystem.service.IUserService;
+import com.hrt.smartpatrolsystem.user.pojos.User;
+import com.hrt.smartpatrolsystem.user.vos.UserVO;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.sound.midi.Soundbank;
 
 /**
  * ClassName: UserController
@@ -16,7 +26,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    @Autowired
+    private IUserService userService;
 
-
+    @GetMapping("/{id}")
+    public ResponseResult<UserVO> getUserById(@PathVariable Integer id){
+        User user = userService.getById(id);
+        if (user == null){
+            return ResponseResult.errorResult(HttpCodeEnum.ERROR);
+        }
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user,userVO,UserVO.class);
+        System.out.println(userVO);
+        return ResponseResult.okResult(userVO);
+    }
 
 }

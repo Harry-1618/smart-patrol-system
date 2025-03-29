@@ -1,7 +1,6 @@
-package com.hrt.smartpatrolsystem.common.dtos;
+package com.hrt.smartpatrolsystem.common.vos;
 
 import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,7 +14,7 @@ import java.io.Serializable;
  * @Create: 2025/3/29 - 13:20
  * @Version: v1.0
  */
-@Data
+
 public class ResponseResult<T> implements Serializable {
     private Integer code;
     private String msg;
@@ -53,7 +52,7 @@ public class ResponseResult<T> implements Serializable {
     }
 
     public static ResponseResult okResult(Object data) {
-        ResponseResult result = setAppHttpCodeEnum(HttpCodeEnum.SUCCESS, HttpCodeEnum.SUCCESS.getMsg());
+        ResponseResult result = setHttpCodeEnum(HttpCodeEnum.SUCCESS, HttpCodeEnum.SUCCESS.getMsg());
         if(data!=null) {
             result.setData(data);
         }
@@ -61,19 +60,19 @@ public class ResponseResult<T> implements Serializable {
     }
 
     public static ResponseResult errorResult(HttpCodeEnum enums){
-        return setAppHttpCodeEnum(enums,enums.getMsg());
+        return setHttpCodeEnum(enums,enums.getMsg());
     }
 
-    public static ResponseResult errorResult(HttpCodeEnum enums, String errorMessage){
-        return setAppHttpCodeEnum(enums,errorMessage);
+    public static ResponseResult errorResult(HttpCodeEnum enums, String msg){
+        return setHttpCodeEnum(enums,msg);
     }
 
-    public static ResponseResult setAppHttpCodeEnum(HttpCodeEnum enums){
+    public static ResponseResult setHttpCodeEnum(HttpCodeEnum enums){
         return okResult(enums.getCode(),enums.getMsg());
     }
 
-    private static ResponseResult setAppHttpCodeEnum(HttpCodeEnum enums, String errorMessage){
-        return okResult(enums.getCode(),errorMessage);
+    private static ResponseResult setHttpCodeEnum(HttpCodeEnum enums, String msg){
+        return okResult(enums.getCode(),msg);
     }
     public ResponseResult<?> error(Integer code, String msg) {
         this.code = code;
@@ -98,4 +97,29 @@ public class ResponseResult<T> implements Serializable {
         this.data = data;
         return this;
     }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
 }

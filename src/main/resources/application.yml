@@ -4,11 +4,13 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://dbconn.sealoshzh.site:45986
+    url: jdbc:mysql://dbconn.sealoshzh.site:45986/smart-patrol-system
     username: root
-    password:
+    password: s5t2j8lc
 
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+server:
+  port: 8080

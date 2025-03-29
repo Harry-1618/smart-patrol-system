@@ -1,4 +1,4 @@
-package com.hrt.smartpatrolsystem.pojos;
+package com.hrt.smartpatrolsystem.user.pojos;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -21,9 +21,7 @@ import java.util.Date;
  */
 @Data
 @TableName("user")
-public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class User{
 
     /**
      * 用户id
@@ -36,6 +34,13 @@ public class User implements Serializable {
      */
     @TableField("username")
     private String username;
+
+    /**
+     * 姓名
+     */
+    @TableField("name")
+    private String name;
+
     /**
      * 密码
      */
@@ -77,12 +82,19 @@ public class User implements Serializable {
      * 0-未删除
      * 1-已删除
      */
-    @TableField("is_delete")
-    private Short isDelete;
+    @TableField("is_deleted")
+    private Short isDeleted;
 
     /**
      * 创建时间
      */
-    @TableField("create_time")
-    private Date createTime;
+    @TableField("created_time")
+    private Date createdTime;
+
+    /**
+     * 更新时间
+     */
+    @TableField("updated_time")
+    private Date updatedTime;
+
 }
