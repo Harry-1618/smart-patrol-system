@@ -12,5 +12,8 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      update-strategy: ignored
 server:
   port: 8080

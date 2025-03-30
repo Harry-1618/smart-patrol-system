@@ -1,8 +1,11 @@
 package com.hrt.smartpatrolsystem.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.service.IUserService;
+import com.hrt.smartpatrolsystem.user.dtos.UserDTO;
 import com.hrt.smartpatrolsystem.user.pojos.User;
 import com.hrt.smartpatrolsystem.user.vos.UserVO;
 import org.apache.ibatis.annotations.Delete;
@@ -11,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.sound.midi.Soundbank;
+import java.util.Date;
 
 /**
  * ClassName: UserController
@@ -29,22 +33,21 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseResult<UserVO> getUserById(@PathVariable Integer id){
-        User user = userService.getById(id);
-        if (user == null){
-            return ResponseResult.errorResult(HttpCodeEnum.ERROR);
-        }
-        UserVO userVO = new UserVO();
-        BeanUtils.copyProperties(user,userVO,UserVO.class);
-        return ResponseResult.okResult(userVO);
+        return userService.getUserById(id);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseResult deleteUserById(@PathVariable Integer id){
-        boolean b = userService.removeById(id);
-        if (b){
-            return ResponseResult.okResult(null);
-        }
-        return ResponseResult.errorResult(HttpCodeEnum.ERROR);
+        return userService.deleteUserById(id);
     }
 
+    @PostMapping
+    public ResponseResult addUser(@RequestBody UserDTO userDTO){
+        return userService.addUser(userDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseResult updateUser(@PathVariable Integer id,@RequestBody UserDTO userDTO){
+        return userService.updateUser(id,userDTO);
+    }
 }
