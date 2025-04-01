@@ -10,6 +10,7 @@ import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.mapper.UserMapper;
 import com.hrt.smartpatrolsystem.service.IUserService;
 import com.hrt.smartpatrolsystem.user.dtos.UserDTO;
+import com.hrt.smartpatrolsystem.user.dtos.UserPWDChangeDTO;
 import com.hrt.smartpatrolsystem.user.dtos.UserPageDTO;
 import com.hrt.smartpatrolsystem.user.pojos.User;
 import com.hrt.smartpatrolsystem.user.vos.UserVO;
@@ -99,6 +100,9 @@ public class UserService extends ServiceImpl<UserMapper, User> implements IUserS
             return ResponseResult.errorResult(HttpCodeEnum.ERROR);
         }
 
+        if (oldUser.getIsDeleted()==1)
+            return ResponseResult.errorResult(HttpCodeEnum.ERROR);
+
         // 拷贝非空字段
         BeanUtils.copyProperties(userDTO, oldUser, getNullPropertyNames(userDTO));
 
@@ -144,6 +148,20 @@ public class UserService extends ServiceImpl<UserMapper, User> implements IUserS
         responseResult.setData(userVOList);
         responseResult.setCode(HttpCodeEnum.SUCCESS.getCode());
         return responseResult;
+    }
+
+    /**
+     * 修改用户密码
+     * @param id
+     * @param userDTO
+     */
+    @Override
+    public ResponseResult updateUserPWD(Integer id, UserPWDChangeDTO userDTO) {
+        if (userDTO == null|| id == null)
+            return ResponseResult.errorResult(HttpCodeEnum.ERROR);
+        UserDTO user = new UserDTO();
+        user.setPassword(userDTO.getNewPassword());
+        return updateUser(id, user);
     }
 
     // 转换方法：将 User 转换为 UserVO

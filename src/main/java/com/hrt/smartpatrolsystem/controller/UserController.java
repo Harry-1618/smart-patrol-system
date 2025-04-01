@@ -6,6 +6,7 @@ import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.service.IUserService;
 import com.hrt.smartpatrolsystem.user.dtos.UserDTO;
+import com.hrt.smartpatrolsystem.user.dtos.UserPWDChangeDTO;
 import com.hrt.smartpatrolsystem.user.dtos.UserPageDTO;
 import com.hrt.smartpatrolsystem.user.pojos.User;
 import com.hrt.smartpatrolsystem.user.vos.UserVO;
@@ -61,6 +62,11 @@ public class UserController {
     @GetMapping
     public ResponseResult getUserList(@RequestBody UserPageDTO userPageDTO){
             return userService.getUserList(userPageDTO);
+    }
+
+    @PutMapping("/{id}/password")
+    public ResponseResult updateUserPassword(@PathVariable Integer id,@RequestBody UserPWDChangeDTO userDTO){
+        return userService.updateUserPWD(id,userDTO);
     }
 
 }
