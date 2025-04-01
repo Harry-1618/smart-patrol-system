@@ -1,21 +1,28 @@
 package com.hrt.smartpatrolsystem.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hrt.smartpatrolsystem.common.vos.PageResponseResult;
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.mapper.UserMapper;
 import com.hrt.smartpatrolsystem.service.IUserService;
 import com.hrt.smartpatrolsystem.user.dtos.UserDTO;
+import com.hrt.smartpatrolsystem.user.dtos.UserPageDTO;
 import com.hrt.smartpatrolsystem.user.pojos.User;
 import com.hrt.smartpatrolsystem.user.vos.UserVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,6 +35,8 @@ import java.util.Set;
  * @Version: v1.0
  */
 @Service
+@Transactional
+@Slf4j
 public class UserService extends ServiceImpl<UserMapper, User> implements IUserService {
     /**
      * 根据id查询用户
@@ -102,6 +111,46 @@ public class UserService extends ServiceImpl<UserMapper, User> implements IUserS
             return ResponseResult.errorResult(HttpCodeEnum.ERROR);
         }
         return ResponseResult.okResult(null);
+    }
+
+    /**
+     * 分页查询用户列表
+     * @param userPageDTO
+     * @return
+     */
+    @Override
+    public ResponseResult getUserList(UserPageDTO userPageDTO) {
+        if (userPageDTO == null)
+            return ResponseResult.errorResult(HttpCodeEnum.ERROR);
+        userPageDTO.checkParam();
+        IPage<User> page=new Page(userPageDTO.getPage(),userPageDTO.getPageSize());
+        // 构建查询条件，注意使用 User 实体类的字段
+        page = page(page, Wrappers.<User>lambdaQuery()
+                .like(userPageDTO.getUsername() != null, User::getUsername, userPageDTO.getUsername())
+                .like(userPageDTO.getName() != null, User::getName, userPageDTO.getName())
+                .eq(userPageDTO.getRole() != null, User::getRole, userPageDTO.getRole())
+                .eq(userPageDTO.getPhone() != null, User::getPhone, userPageDTO.getPhone())
+                .eq(userPageDTO.getEmail() != null, User::getEmail, userPageDTO.getEmail())
+                .eq(userPageDTO.getStatus() != null, User::getStatus, userPageDTO.getStatus())
+        );
+
+        // 将查询结果转换为 UserVO 列表
+        List<UserVO> userVOList = page.getRecords().stream()
+                .map(this::convertToUserVO)
+                .toList();
+
+        // 构建返回结果
+        ResponseResult responseResult=new PageResponseResult(userVOList.size());
+        responseResult.setData(userVOList);
+        responseResult.setCode(HttpCodeEnum.SUCCESS.getCode());
+        return responseResult;
+    }
+
+    // 转换方法：将 User 转换为 UserVO
+    private UserVO convertToUserVO(User user) {
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+        return userVO;
     }
 
     // 获取源对象中值为 null 的字段名

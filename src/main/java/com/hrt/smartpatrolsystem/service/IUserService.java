@@ -3,6 +3,7 @@ package com.hrt.smartpatrolsystem.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.user.dtos.UserDTO;
+import com.hrt.smartpatrolsystem.user.dtos.UserPageDTO;
 import com.hrt.smartpatrolsystem.user.pojos.User;
 import com.hrt.smartpatrolsystem.user.vos.UserVO;
 
@@ -40,4 +41,10 @@ public interface IUserService extends IService<User> {
      * @param userDTO
      */
     ResponseResult updateUser(Integer id, UserDTO userDTO);
+
+    /**
+     * 分页查询用户
+     * @param userPageDTO
+     */
+    ResponseResult getUserList(UserPageDTO userPageDTO);
 }

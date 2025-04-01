@@ -22,7 +22,7 @@ public class ResponseResult<T> implements Serializable {
 
 
     public ResponseResult() {
-        this.code = 200;
+        this.code = 1;
     }
 
     public ResponseResult(Integer code, T data) {

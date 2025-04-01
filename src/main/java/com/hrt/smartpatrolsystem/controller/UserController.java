@@ -6,6 +6,7 @@ import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.service.IUserService;
 import com.hrt.smartpatrolsystem.user.dtos.UserDTO;
+import com.hrt.smartpatrolsystem.user.dtos.UserPageDTO;
 import com.hrt.smartpatrolsystem.user.pojos.User;
 import com.hrt.smartpatrolsystem.user.vos.UserVO;
 import org.apache.ibatis.annotations.Delete;
@@ -50,4 +51,16 @@ public class UserController {
     public ResponseResult updateUser(@PathVariable Integer id,@RequestBody UserDTO userDTO){
         return userService.updateUser(id,userDTO);
     }
+
+    @PutMapping("/{id}/status")
+    public ResponseResult updateUserStatus(@PathVariable Integer id,@RequestBody UserDTO userDTO){
+        return userService.updateUser(id,userDTO);
+    }
+
+
+    @GetMapping
+    public ResponseResult getUserList(@RequestBody UserPageDTO userPageDTO){
+            return userService.getUserList(userPageDTO);
+    }
+
 }
