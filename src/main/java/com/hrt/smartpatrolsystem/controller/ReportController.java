@@ -1,11 +1,10 @@
 package com.hrt.smartpatrolsystem.controller;
 
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
+import com.hrt.smartpatrolsystem.report.dtos.ReportTypeDTO;
 import com.hrt.smartpatrolsystem.service.IReportTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * ClassName: ReportController
@@ -25,5 +24,10 @@ public class ReportController {
     @GetMapping("/report-types")
     ResponseResult getReportType(){
         return reportTypeService.getReportTypeList();
+    }
+
+    @PostMapping("/report-types")
+    ResponseResult addReportType(@RequestBody ReportTypeDTO reportTypeDTO){
+        return reportTypeService.addReportType(reportTypeDTO);
     }
 }

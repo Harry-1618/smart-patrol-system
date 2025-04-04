@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.mapper.ReportTypeMapper;
+import com.hrt.smartpatrolsystem.report.dtos.ReportTypeDTO;
 import com.hrt.smartpatrolsystem.report.pojos.ReportType;
 import com.hrt.smartpatrolsystem.report.vos.ReportTypeVO;
 import com.hrt.smartpatrolsystem.service.IReportTypeService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,12 +48,28 @@ public class ReportTypeServiceImpl extends ServiceImpl<ReportTypeMapper, ReportT
         return ResponseResult.okResult(collect);
     }
 
+    /*
+     * @Description: 添加报告类型
+     */
+
+    @Override
+    public ResponseResult addReportType(ReportTypeDTO reportTypeDTO) {
+        if (reportTypeDTO == null)
+            return ResponseResult.errorResult(HttpCodeEnum.ERROR);
+        ReportType reportType = new ReportType();
+        BeanUtils.copyProperties(reportTypeDTO, reportType, ReportType.class);
+        reportType.setCreatedTime(new Date());
+        reportType.setUpdatedTime(new Date());
+        save(reportType);
+        return ResponseResult.okResult(null);
+    }
+
     /**
      * @Description: 将ReportType对象转换为ReportTypeVO对象
      */
     private ReportTypeVO convertToReportTypeVO(ReportType reportType) {
         ReportTypeVO reportTypeVO=new ReportTypeVO();
-        BeanUtils.copyProperties(reportType, reportTypeVO);
+        BeanUtils.copyProperties(reportType, reportTypeVO, ReportTypeVO.class);
         return reportTypeVO;
     }
 }
