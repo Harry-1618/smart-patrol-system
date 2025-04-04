@@ -64,6 +64,17 @@ public class ReportTypeServiceImpl extends ServiceImpl<ReportTypeMapper, ReportT
         return ResponseResult.okResult(null);
     }
 
+    /*
+     * @Description: 根据id获取报告类型
+     */
+    @Override
+    public ResponseResult getReportTypeById(Integer id) {
+        ReportType reportType = getOne(Wrappers.lambdaQuery(ReportType.class).eq(ReportType::getId, id));
+        if (reportType == null)
+            return ResponseResult.errorResult(HttpCodeEnum.ERROR);
+        return ResponseResult.okResult(reportType);
+    }
+
     /**
      * @Description: 将ReportType对象转换为ReportTypeVO对象
      */

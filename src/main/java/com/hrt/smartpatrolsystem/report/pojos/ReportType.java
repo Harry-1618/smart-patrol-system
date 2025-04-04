@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -19,7 +20,7 @@ import java.util.Date;
  */
 @Data
 @TableName("report_type")
-public class ReportType {
+public class ReportType implements Serializable {
     //主键
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

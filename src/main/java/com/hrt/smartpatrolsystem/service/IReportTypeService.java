@@ -25,4 +25,9 @@ public interface IReportTypeService extends IService<ReportType> {
     * @Description: 添加报告类型
      */
     ResponseResult addReportType(ReportTypeDTO reportTypeDTO);
+
+    /*
+    * @Description: 根据id获取报告类型
+     */
+    ResponseResult getReportTypeById(Integer id);
 }

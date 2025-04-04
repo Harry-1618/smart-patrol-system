@@ -1,7 +1,9 @@
 package com.hrt.smartpatrolsystem.controller;
 
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
+import com.hrt.smartpatrolsystem.report.dtos.ReportLogsPageDTO;
 import com.hrt.smartpatrolsystem.report.dtos.ReportTypeDTO;
+import com.hrt.smartpatrolsystem.service.IReportLogsService;
 import com.hrt.smartpatrolsystem.service.IReportTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ public class ReportController {
     @Autowired
     private IReportTypeService reportTypeService;
 
+    @Autowired
+    private IReportLogsService reportLogsService;
+
     @GetMapping("/report-types")
     ResponseResult getReportType(){
         return reportTypeService.getReportTypeList();
@@ -29,5 +34,15 @@ public class ReportController {
     @PostMapping("/report-types")
     ResponseResult addReportType(@RequestBody ReportTypeDTO reportTypeDTO){
         return reportTypeService.addReportType(reportTypeDTO);
+    }
+
+    @GetMapping("/report-types/{id}")
+    ResponseResult getReportTypeById(@PathVariable Integer id){
+        return reportTypeService.getReportTypeById(id);
+    }
+
+    @GetMapping("/return-logs")
+    ResponseResult getReturnLogsList(@RequestBody ReportLogsPageDTO reportLogsPageDTO){
+        return reportLogsService.getReturnLogsList(reportLogsPageDTO);
     }
 }
