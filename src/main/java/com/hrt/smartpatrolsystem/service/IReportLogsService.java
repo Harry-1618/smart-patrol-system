@@ -21,4 +21,5 @@ public interface IReportLogsService extends IService<ReturnLogReport> {
      * @return
      */
     ResponseResult getReturnLogsList(ReportLogsPageDTO reportLogsPageDTO);
+
 }

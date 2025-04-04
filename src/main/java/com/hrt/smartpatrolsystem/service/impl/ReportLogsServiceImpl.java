@@ -9,6 +9,7 @@ import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.mapper.ReportLogsMapper;
 import com.hrt.smartpatrolsystem.report.dtos.ReportLogsPageDTO;
+import com.hrt.smartpatrolsystem.report.pojos.DeficiencyReport;
 import com.hrt.smartpatrolsystem.report.pojos.ReturnLogReport;
 import com.hrt.smartpatrolsystem.report.vos.ReportLogsVO;
 import com.hrt.smartpatrolsystem.service.IReportLogsService;
@@ -60,6 +61,7 @@ public class ReportLogsServiceImpl extends ServiceImpl<ReportLogsMapper, ReturnL
         responseResult.setCode(HttpCodeEnum.SUCCESS.getCode());
         return responseResult;
     }
+
 
     @Autowired
     private IReportTypeService reportTypeService;

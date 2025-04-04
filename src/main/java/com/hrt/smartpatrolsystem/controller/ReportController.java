@@ -3,6 +3,7 @@ package com.hrt.smartpatrolsystem.controller;
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
 import com.hrt.smartpatrolsystem.report.dtos.ReportLogsPageDTO;
 import com.hrt.smartpatrolsystem.report.dtos.ReportTypeDTO;
+import com.hrt.smartpatrolsystem.service.IDeficiencyReportService;
 import com.hrt.smartpatrolsystem.service.IReportLogsService;
 import com.hrt.smartpatrolsystem.service.IReportTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ReportController {
     @Autowired
     private IReportLogsService reportLogsService;
 
+    @Autowired
+    private IDeficiencyReportService deficiencyReportService;
+
     @GetMapping("/report-types")
     ResponseResult getReportType(){
         return reportTypeService.getReportTypeList();
@@ -44,5 +48,10 @@ public class ReportController {
     @GetMapping("/return-logs")
     ResponseResult getReturnLogsList(@RequestBody ReportLogsPageDTO reportLogsPageDTO){
         return reportLogsService.getReturnLogsList(reportLogsPageDTO);
+    }
+
+    @GetMapping("/deficiency-reports")
+    ResponseResult getDeficiencyReportsList(@RequestBody ReportLogsPageDTO reportLogsPageDTO){
+        return deficiencyReportService.getDeficiencyReportsList(reportLogsPageDTO);
     }
 }
