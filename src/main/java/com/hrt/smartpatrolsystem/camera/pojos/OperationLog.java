@@ -5,59 +5,58 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.hrt.smartpatrolsystem.common.annotation.IpAddress;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * ClassName: Camera
+ * ClassName: OperationLog
  * Package: com.hrt.smartpatrolsystem.camera.pojos
  * Description:
  *
  * @Author: 黄瑞天
- * @Create: 2025/4/5 - 11:55
+ * @Create: 2025/4/5 - 14:04
  * @Version: v1.0
  */
 @Data
-@TableName("camera")
-public class Camera implements Serializable {
+@TableName("operation_log")
+public class OperationLog implements Serializable {
     /**
-     * 主键id
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 摄像头名称
+     * 操作类型
      */
-    @TableField("name")
-    private String name;
+    @TableField("operation_type")
+    private Short operationType;
 
     /**
-     * 摄像头位置
+     * 操作时间
      */
-    @TableField("location")
-    private String location;
+    @TableField("operation_time")
+    private Date operationTime;
 
     /**
-     * 摄像头ip地址
+     * 操作人id
      */
-    @NotBlank
-    @IpAddress
-    @TableField("ip_address")
-    private String ipAddress;
+    @TableField("operator_id")
+    private Integer operatorId;
 
     /**
-     * 摄像头状态
-     * 0-正常
-     * 1-停止使用
-     * 2-故障
+     * 操作摄像头id
      */
-    @TableField("status")
-    private Short status;
+    @TableField("camera_id")
+    private Integer cameraId;
+
+    /**
+     * 备注
+     */
+    @TableField("remarks")
+    private String remarks;
 
     /**
      * 创建时间

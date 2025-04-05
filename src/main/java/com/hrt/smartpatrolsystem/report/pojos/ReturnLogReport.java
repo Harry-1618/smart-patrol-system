@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -31,6 +32,7 @@ public class ReturnLogReport implements Serializable {
     * 返回日期
      */
     @TableField("report_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date reportDate;
 
     /*
@@ -43,12 +45,14 @@ public class ReturnLogReport implements Serializable {
     * 开始时间
      */
     @TableField("start_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
     /*
     * 结束时间
      */
     @TableField("end_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     /*
@@ -97,11 +101,13 @@ public class ReturnLogReport implements Serializable {
     * 创建时间
      */
     @TableField("created_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createdTime;
 
     /*
     * 更新时间
      */
     @TableField("updated_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updatedTime;
 }

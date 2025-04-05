@@ -1,14 +1,14 @@
 package com.hrt.smartpatrolsystem.controller;
 
+import com.hrt.smartpatrolsystem.camera.dtos.CameraDTO;
 import com.hrt.smartpatrolsystem.camera.dtos.CameraPageDTO;
+import com.hrt.smartpatrolsystem.camera.dtos.CameraStatusDTO;
 import com.hrt.smartpatrolsystem.common.vos.ResponseResult;
+import com.hrt.smartpatrolsystem.constants.HttpCodeEnum;
 import com.hrt.smartpatrolsystem.service.ICameraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BulkBean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * ClassName: CameraController
@@ -33,5 +33,30 @@ public class CameraController {
     @GetMapping("/pages")
     public ResponseResult getCameraPageResult(@RequestBody CameraPageDTO cameraPageDTO){
         return cameraService.getCameraPageResult(cameraPageDTO) ;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseResult getCameraById(@PathVariable Integer id){
+        return cameraService.getCameraById(id);
+    }
+
+    @PutMapping("/status")
+    public ResponseResult updateCameraStatus(@RequestBody CameraStatusDTO cameraStatusDTO){
+        return cameraService.updateCameraStatus(cameraStatusDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseResult removeCameraById(@PathVariable Integer id){
+        return cameraService.removeById(id) ? ResponseResult.okResult(HttpCodeEnum.SUCCESS) : ResponseResult.errorResult(HttpCodeEnum.ERROR);
+    }
+
+    @PostMapping
+    public ResponseResult addCamera(@RequestBody CameraDTO cameraDTO){
+        return cameraService.addCamera(cameraDTO);
+    }
+
+    @PutMapping
+    public ResponseResult updateCamera(@RequestBody CameraDTO cameraDTO){
+        return cameraService.updateCamera(cameraDTO);
     }
 }

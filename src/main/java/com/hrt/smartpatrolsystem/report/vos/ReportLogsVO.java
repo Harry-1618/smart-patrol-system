@@ -1,5 +1,6 @@
 package com.hrt.smartpatrolsystem.report.vos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class ReportLogsVO {
     private Integer id;
 
     @JsonProperty("report_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date reportDate;
 
     @JsonProperty("user_name")

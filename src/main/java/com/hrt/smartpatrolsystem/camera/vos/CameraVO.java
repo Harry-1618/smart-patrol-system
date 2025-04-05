@@ -3,6 +3,7 @@ package com.hrt.smartpatrolsystem.camera.vos;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.hrt.smartpatrolsystem.common.annotation.IpAddress;
@@ -61,5 +62,6 @@ public class CameraVO {
      * 创建时间
      */
     @JsonProperty("create_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 }
