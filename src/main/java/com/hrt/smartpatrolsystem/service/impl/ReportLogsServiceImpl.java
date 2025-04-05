@@ -58,6 +58,7 @@ public class ReportLogsServiceImpl extends ServiceImpl<ReportLogsMapper, ReturnL
 
         ResponseResult responseResult=new PageResponseResult(list.size());
         responseResult.setData(list);
+        responseResult.setMsg(HttpCodeEnum.SUCCESS.getMsg());
         responseResult.setCode(HttpCodeEnum.SUCCESS.getCode());
         return responseResult;
     }

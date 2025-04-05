@@ -64,6 +64,7 @@ public class DeficiencyReportServiceImpl extends ServiceImpl<DeficiencyReportMap
 
         ResponseResult responseResult=new PageResponseResult(list.size());
         responseResult.setData(list);
+        responseResult.setMsg(HttpCodeEnum.SUCCESS.getMsg());
         responseResult.setCode(HttpCodeEnum.SUCCESS.getCode());
         return responseResult;
     }

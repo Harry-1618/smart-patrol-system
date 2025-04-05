@@ -146,6 +146,7 @@ public class UserService extends ServiceImpl<UserMapper, User> implements IUserS
         // 构建返回结果
         ResponseResult responseResult=new PageResponseResult(userVOList.size());
         responseResult.setData(userVOList);
+        responseResult.setMsg(HttpCodeEnum.SUCCESS.getMsg());
         responseResult.setCode(HttpCodeEnum.SUCCESS.getCode());
         return responseResult;
     }
